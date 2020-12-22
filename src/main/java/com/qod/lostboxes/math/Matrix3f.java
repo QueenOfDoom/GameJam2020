@@ -1,0 +1,150 @@
+package com.qod.lostboxes.math;
+
+import java.util.Arrays;
+
+public class Matrix3f implements IMatrix<Float> {
+
+    float[] values;
+
+    public Matrix3f(float... values) {
+        this.values = values;
+    }
+
+    public Matrix3f() { }
+
+    @Override
+    public int getWidth() {
+        return 3;
+    }
+
+    @Override
+    public int getHeight() {
+        return 3;
+    }
+
+    @Override
+    public IMatrix<Float> add(IMatrix<Float> matrix) {
+        return new Matrix3f(
+                values[0] + matrix.get(0,0),
+                values[1] + matrix.get(1, 0),
+                values[2] + matrix.get(2, 0),
+                values[3] + matrix.get(0,1),
+                values[4] + matrix.get(1,1),
+                values[5] + matrix.get(2,1),
+                values[6] + matrix.get(0,2),
+                values[7] + matrix.get(1,2),
+                values[8] + matrix.get(2,2)
+        );
+    }
+
+    @Override
+    public IMatrix<Float> scale(double scalar) {
+        float[] result = new float[3*3];
+        for(int i = 0; i < result.length; i++)
+            result[i] = (float) scalar * values[i];
+        return new Matrix3f(result);
+    }
+
+    @Override
+    public IMatrix<Float> transpose() {
+        return new Matrix3f(
+                values[0],
+                values[3],
+                values[6],
+                values[1],
+                values[4],
+                values[7],
+                values[2],
+                values[5],
+                values[8]
+        );
+    }
+
+    @Override
+    public IMatrix<Float> identity() {
+        return new Matrix3f(
+                1, 0, 0,
+                0, 1, 0,
+                0, 0, 1
+        );
+    }
+
+    @Override
+    public IMatrix<Float> inverse() { // Oh god... That's a pain...
+        return new Matrix3f(
+                values[4]*values[8]-values[5]*values[7], //ei-fh
+                values[2]*values[7] - values[1]*values[8], //ch-bi
+                values[1]*values[5] - values[2]*values[4],//bf-ce
+                values[5]*values[6] - values[3]*values[8],//fg-di
+                values[0]*values[8] - values[2]*values[6],//ai-cg
+                values[2]*values[3] - values[0]*values[5],//cd-af
+                values[3]*values[7] - values[4]*values[6],//dh-eg
+                values[1]*values[6] - values[0]*values[7],//bg-ah
+                values[0]*values[4] - values[1]*values[3]//ae-bd
+        ).scale(1.0/determinant());
+    }
+
+    @Override
+    public IMatrix<Float> rotation(double radian) {
+        return new Matrix3f(
+                (float) Math.cos(radian), (float) -Math.sin(radian), 0,
+                (float) Math.sin(radian), (float) Math.cos(radian), 0,
+                0, 0, 1
+        );
+    }
+
+    @Override
+    public IMatrix<Float> translation(Float dx, Float dy) {
+        return new Matrix3f(
+                1, 0, dx,
+                0, 1, dy,
+                0, 0, 1
+        );
+    }
+
+    @Override
+    public Float determinant() {
+        return
+                values[0]*(values[4]*values[8] - values[5]*values[7])
+                + values[1]*(values[5]*values[6]-values[3]*values[8])
+                + values[2]*(values[3]*values[7] - values[4]*values[6]);
+    }
+
+    @Override
+    public boolean isSquare() {
+        return true;
+    }
+
+    @Override
+    public Float get(int x, int y) {
+        return values[3*y+x];
+    }
+
+    @Override
+    public Float[] getRow(int y) {
+        return new Float[]{values[3*y], values[3*y+1], values[3*y+2]};
+    }
+
+    @Override
+    public Float[] getColumn(int x) {
+        return new Float[]{values[x], values[x+3], values[x+2*3]};
+    }
+
+    @Override
+    public String toString() {
+        return "Matrix3f{values=" + Arrays.toString(values) + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matrix3f matrix3f = (Matrix3f) o;
+        return Arrays.equals(values, matrix3f.values);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(values);
+    }
+}

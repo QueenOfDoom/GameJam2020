@@ -38,6 +38,17 @@ public class Matrix3f implements IMatrix<Float> {
     }
 
     @Override
+    public IMatrix<Float> mul(IMatrix<Float> matrix) {
+        float[] result = new float[9];
+        for(int i = 0; i < 9; i++) {
+            for(int k = 0; k < 3; k++) {
+                result[i] += get(i%3, k) * matrix.get(k, i/3);
+            }
+        }
+        return new Matrix3f(result);
+    }
+
+    @Override
     public IMatrix<Float> scale(double scalar) {
         float[] result = new float[3*3];
         for(int i = 0; i < result.length; i++)
@@ -67,21 +78,6 @@ public class Matrix3f implements IMatrix<Float> {
                 0, 1, 0,
                 0, 0, 1
         );
-    }
-
-    @Override
-    public IMatrix<Float> inverse() { // Oh god... That's a pain...
-        return new Matrix3f(
-                values[4]*values[8]-values[5]*values[7], //ei-fh
-                values[2]*values[7] - values[1]*values[8], //ch-bi
-                values[1]*values[5] - values[2]*values[4],//bf-ce
-                values[5]*values[6] - values[3]*values[8],//fg-di
-                values[0]*values[8] - values[2]*values[6],//ai-cg
-                values[2]*values[3] - values[0]*values[5],//cd-af
-                values[3]*values[7] - values[4]*values[6],//dh-eg
-                values[1]*values[6] - values[0]*values[7],//bg-ah
-                values[0]*values[4] - values[1]*values[3]//ae-bd
-        ).scale(1.0/determinant());
     }
 
     @Override

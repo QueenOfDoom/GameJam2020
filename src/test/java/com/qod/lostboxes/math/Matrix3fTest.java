@@ -35,9 +35,10 @@ class Matrix3fTest {
     }
 
     @Test
-    void inverse() {
-        Matrix3f matrix = new Matrix3f(1, 2, 3, 3, 2, 1, 2, 1, 3);
-        assertEquals(new Matrix3f(-5, 3, 4, 7, 3, -8, 1, -3, 4).scale(1.0/12.0), matrix.inverse());
+    void mul() {
+        IMatrix<Float> a = new Matrix3f(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        IMatrix<Float> b = new Matrix3f(2, 3, 4, 5, 6, 7, 8, 9, 10);
+        assertEquals(new Matrix3f(36, 42, 48, 81, 96, 111, 126, 150, 174), a.mul(b));
     }
 
     @Test

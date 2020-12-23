@@ -27,6 +27,17 @@ public class Matrix4f implements IMatrix<Float>{
     }
 
     @Override
+    public IMatrix<Float> mul(IMatrix<Float> matrix) {
+        float[] result = new float[16];
+        for(int i = 0; i < 16; i++) {
+            for(int k = 0; k < 4; k++) {
+                result[i] = get(i%4, k) + matrix.get(k, i/4);
+            }
+        }
+        return new Matrix4f(result);
+    }
+
+    @Override
     public IMatrix<Float> scale(double scalar) {
         float[] result = new float[4*4];
         for(int i = 0; i < result.length; i++)
@@ -36,7 +47,11 @@ public class Matrix4f implements IMatrix<Float>{
 
     @Override
     public IMatrix<Float> transpose() {
-        return null; //TODO: Some Nerve Wrecking
+        float[] res = new float[16];
+        for(int i = 0; i < 16; i++) {
+            res[i] = values[i/4+1];
+        }
+        return new Matrix4f(res);
     }
 
     @Override
@@ -50,23 +65,70 @@ public class Matrix4f implements IMatrix<Float>{
     }
 
     @Override
-    public IMatrix<Float> inverse() {
-        return null; //TODO: Some more Nerve Wrecking
+    public IMatrix<Float> rotation(double radian) {
+        throw new UnsupportedOperandException();
     }
 
-    @Override
-    public IMatrix<Float> rotation(double radian) {
-        return null;  //TODO: Fairly Easy
+    public IMatrix<Float> rotationX(double radian) {
+        return new Matrix4f(
+                1, 0, 0,
+                0, (float) Math.cos(radian), (float) -Math.sin(radian),
+                0, (float) Math.sin(radian), (float) Math.cos(radian)
+        );
+    }
+
+    public IMatrix<Float> rotationY(double radian) {
+        return new Matrix4f(
+                (float) Math.cos(radian), 0, (float) Math.sin(radian),
+                0, 1, 0,
+                (float) -Math.sin(radian), 0, (float) Math.cos(radian)
+        );
+    }
+
+    public IMatrix<Float> rotationZ(double radian) {
+        return new Matrix4f(
+                (float) Math.cos(radian), (float) -Math.sin(radian), 0,
+                (float) Math.sin(radian), (float) Math.cos(radian), 0,
+                0, 0, 1
+        );
+    }
+
+    public IMatrix<Float> rotation(double radX, double radY, double radZ) {
+        return rotationX(radX).mul(rotationY(radY)).mul(rotationZ(radZ));
     }
 
     @Override
     public IMatrix<Float> translation(Float dx, Float dy) {
-        return null; //TODO: Even easier
+        throw new UnsupportedOperandException();
+    }
+
+    public IMatrix<Float> translation(Float dx, Float dy, Float dz) {
+        return new Matrix4f(
+                1, 0, 0, dx,
+                0, 1, 0, dy,
+                0, 0, 1, dz,
+                0, 0, 0, 1
+        );
     }
 
     @Override
     public Float determinant() {
-        return null; //TODO: No please, God no!
+        return get(0,0)*new Matrix3f(
+                get(1, 1), get(2, 1), get(3, 1),
+                get(1, 2), get(2, 2), get(3, 2),
+                get(1, 3), get(2, 3), get(3, 3)).determinant()
+                - get(0,1)*new Matrix3f(
+                get(1, 0), get(2, 0), get(3, 0),
+                get(1, 2), get(2, 2), get(3, 2),
+                get(1, 3), get(2, 3), get(3, 3)).determinant()
+                + get(0,2)*new Matrix3f(
+                get(1, 0), get(2, 0), get(3, 0),
+                get(1, 1), get(2, 1), get(3, 1),
+                get(1, 3), get(2, 3), get(3, 3)).determinant()
+                - get(0,3)*new Matrix3f(
+                get(1, 0), get(2, 0), get(3, 0),
+                get(1, 1), get(2, 1), get(3, 1),
+                get(1, 2), get(2, 2), get(3, 2)).determinant();
     }
 
     @Override

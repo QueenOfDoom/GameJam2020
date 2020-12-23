@@ -1,11 +1,13 @@
 package com.qod.lostboxes.math;
 
+import java.util.Arrays;
+
 public class Matrix2f implements IMatrix<Float> {
 
     float[] values;
 
     public Matrix2f(float... values) {
-        if(values.length != 4) throw new UnsupportedOperandException();
+        if(values.length != 4 && values.length != 0) throw new UnsupportedOperandException();
         this.values = values;
     }
 
@@ -30,6 +32,17 @@ public class Matrix2f implements IMatrix<Float> {
     }
 
     @Override
+    public IMatrix<Float> mul(IMatrix<Float> matrix) {
+        float[] result = new float[4];
+        for(int i = 0; i < 4; i++) {
+            for(int k = 0; k < 2; k++) {
+                result[i] += get(i%2, k) + matrix.get(k, i/2);
+            }
+        }
+        return new Matrix2f(result);
+    }
+
+    @Override
     public IMatrix<Float> scale(double scalar) {
         return new Matrix2f(
                 values[0] * (float) scalar,
@@ -43,15 +56,10 @@ public class Matrix2f implements IMatrix<Float> {
     public IMatrix<Float> transpose() {
         return new Matrix2f(
                 values[0],
-                values[3],
                 values[2],
-                values[1]
+                values[1],
+                values[3]
         );
-    }
-
-    @Override
-    public IMatrix<Float> inverse() {
-        return new Matrix2f(values[3], -values[1], -values[2], values[0]).scale(1.0/this.determinant());
     }
 
     @Override
@@ -97,5 +105,23 @@ public class Matrix2f implements IMatrix<Float> {
     @Override
     public Float[] getColumn(int x) {
         return new Float[]{values[x], values[x+2]};
+    }
+
+    @Override
+    public String toString() {
+        return "Matrix2f{values=" + Arrays.toString(values) + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matrix2f matrix2f = (Matrix2f) o;
+        return Arrays.equals(values, matrix2f.values);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(values);
     }
 }

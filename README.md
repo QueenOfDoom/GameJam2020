@@ -28,3 +28,10 @@ to make as much out of it as possible! I think I'll start off with a basic rende
 game world, which contains tiles and tiles which map to certain textures and properties. I plan on doing that using some simple
 vector / matrix maths. So I guess I'll start it up by creating logger / maths / render and world packages to organize the project
 structure a little :). Of course an App Class as well to rule them all!
+
+## Day 2
+I started implementing Basic mathematical functions and, well. It's going ok. I decided to remove the adjugate and inversion methods
+they're a bit too complicated for now, they'd require the implementation of something like a 
+[Matrix Decomposition](https://en.wikipedia.org/wiki/Matrix_decomposition), which for now, is not needed, so I'll simply omit
+it. Other than that, I'm having a few bugs, but it's going in the right direction. I think I could start with something different
+today.

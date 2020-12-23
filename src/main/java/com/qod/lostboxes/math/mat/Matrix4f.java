@@ -1,4 +1,8 @@
-package com.qod.lostboxes.math;
+package com.qod.lostboxes.math.mat;
+
+import com.qod.lostboxes.math.UnsupportedOperandException;
+
+import java.util.Arrays;
 
 public class Matrix4f implements IMatrix<Float>{
     float[] values;
@@ -31,7 +35,7 @@ public class Matrix4f implements IMatrix<Float>{
         float[] result = new float[16];
         for(int i = 0; i < 16; i++) {
             for(int k = 0; k < 4; k++) {
-                result[i] = get(i%4, k) + matrix.get(k, i/4);
+                result[i] += get(k, i/4) * matrix.get( i%4, k);
             }
         }
         return new Matrix4f(result);
@@ -49,7 +53,7 @@ public class Matrix4f implements IMatrix<Float>{
     public IMatrix<Float> transpose() {
         float[] res = new float[16];
         for(int i = 0; i < 16; i++) {
-            res[i] = values[i/4+1];
+            res[i] = get(i/4, i%4);
         }
         return new Matrix4f(res);
     }
@@ -149,5 +153,23 @@ public class Matrix4f implements IMatrix<Float>{
     @Override
     public Float[] getColumn(int x) {
         return new Float[]{values[x], values[x+4], values[x+2*4], values[x+3*4]};
+    }
+
+    @Override
+    public String toString() {
+        return "Matrix4f{values=" + Arrays.toString(values) + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matrix4f matrix4f = (Matrix4f) o;
+        return Arrays.equals(values, matrix4f.values);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(values);
     }
 }

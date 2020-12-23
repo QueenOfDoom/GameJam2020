@@ -1,4 +1,8 @@
-package com.qod.lostboxes.math;
+package com.qod.lostboxes.math.vec;
+
+import com.qod.lostboxes.math.UnsupportedOperandException;
+import com.qod.lostboxes.math.mat.IMatrix;
+import com.qod.lostboxes.math.mat.Matrix2f;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -45,11 +49,6 @@ public class Vector2f implements IVector<Float> {
         return new Vector2f(
                 x - ((Vector2f) operand).getX(),
                 y - ((Vector2f) operand).getY());
-    }
-
-    @Override
-    public IVector<Float> mul(IVector<Float> operand) {
-        throw new UnsupportedOperationException("Vector Multiplication cannot perform with Vector2f.");
     }
 
     @Override

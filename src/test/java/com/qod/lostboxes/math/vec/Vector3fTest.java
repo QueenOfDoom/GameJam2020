@@ -1,5 +1,8 @@
-package com.qod.lostboxes.math;
+package com.qod.lostboxes.math.vec;
 
+import com.qod.lostboxes.math.mat.IMatrix;
+import com.qod.lostboxes.math.mat.Matrix3f;
+import com.qod.lostboxes.math.vec.Vector3f;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -10,7 +13,9 @@ class Vector3fTest {
 
     @Test
     void transform() {
-
+        Vector3f vec = new Vector3f(1, 0, 0);
+        IMatrix<Float> rotation = new Matrix3f().rotation(0, 0, Math.PI);
+        assertEquals(new Vector3f(-1, 0, 0), vec.transform(rotation));
     }
 
     @Test

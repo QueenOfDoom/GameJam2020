@@ -1,5 +1,9 @@
-package com.qod.lostboxes.math;
+package com.qod.lostboxes.math.vec;
 
+import com.qod.lostboxes.math.mat.IMatrix;
+import com.qod.lostboxes.math.mat.Matrix3f;
+import com.qod.lostboxes.math.vec.Vector2f;
+import com.qod.lostboxes.math.vec.Vector3f;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

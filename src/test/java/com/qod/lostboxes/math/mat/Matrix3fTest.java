@@ -1,4 +1,4 @@
-package com.qod.lostboxes.math;
+package com.qod.lostboxes.math.mat;
 
 import org.junit.jupiter.api.Test;
 
@@ -44,7 +44,7 @@ class Matrix3fTest {
     @Test
     void rotation() {
         double rad = Math.toRadians(60);
-        IMatrix<Float> rot = new Matrix3f().rotation(rad);
+        IMatrix<Float> rot = new Matrix3f().rotationZ(rad);
         assertEquals(new Matrix3f(
                 1/2.0f, (float) -Math.sqrt(3)/2, 0,
                 (float) Math.sqrt(3)/2, 1/2.0f, 0,

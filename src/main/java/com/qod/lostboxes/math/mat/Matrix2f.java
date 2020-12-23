@@ -1,4 +1,6 @@
-package com.qod.lostboxes.math;
+package com.qod.lostboxes.math.mat;
+
+import com.qod.lostboxes.math.UnsupportedOperandException;
 
 import java.util.Arrays;
 
@@ -36,7 +38,7 @@ public class Matrix2f implements IMatrix<Float> {
         float[] result = new float[4];
         for(int i = 0; i < 4; i++) {
             for(int k = 0; k < 2; k++) {
-                result[i] += get(i%2, k) + matrix.get(k, i/2);
+                result[i] += get(k, i/2) * matrix.get( i%2, k);
             }
         }
         return new Matrix2f(result);

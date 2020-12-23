@@ -1,5 +1,8 @@
-package com.qod.lostboxes.math;
+package com.qod.lostboxes.math.mat;
 
+import com.qod.lostboxes.math.UnsupportedOperandException;
+import com.qod.lostboxes.math.mat.IMatrix;
+import com.qod.lostboxes.math.mat.Matrix2f;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +20,7 @@ class Matrix2fTest {
     void mul() {
         Matrix2f a = new Matrix2f(0, 1, 2, 3);
         Matrix2f b = new Matrix2f(9, 8, 7, 6);
-        assertEquals(new Matrix2f(23, 20, 55, 48), a.mul(b));
+        assertEquals(new Matrix2f(7, 6, 39, 34), a.mul(b));
     }
 
     @Test

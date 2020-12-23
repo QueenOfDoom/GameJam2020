@@ -1,4 +1,4 @@
-package com.qod.lostboxes.math;
+package com.qod.lostboxes.math.mat;
 
 public interface IMatrix<T extends Number> {
     int getWidth();

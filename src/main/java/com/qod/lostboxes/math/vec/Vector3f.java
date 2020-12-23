@@ -1,4 +1,8 @@
-package com.qod.lostboxes.math;
+package com.qod.lostboxes.math.vec;
+
+import com.qod.lostboxes.math.MathUtils;
+import com.qod.lostboxes.math.UnsupportedOperandException;
+import com.qod.lostboxes.math.mat.IMatrix;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -35,9 +39,9 @@ public class Vector3f implements IVector<Float> {
     @Override
     public IVector<Float> transform(IMatrix<Float> matrix) {
         return new Vector3f(
-                MathUtils.roundFloat(x * matrix.get(0, 0) + y * matrix.get(0, 1) * z * matrix.get(0, 2), 10),
-                MathUtils.roundFloat(x * matrix.get(1, 0) + y * matrix.get(1, 1) * z * matrix.get(1, 2), 10),
-                MathUtils.roundFloat(x * matrix.get(2, 0) + y * matrix.get(2, 1) * z * matrix.get(2, 2), 10)
+                MathUtils.roundFloat(x * matrix.get(0, 0) + y * matrix.get(0, 1) + z * matrix.get(0, 2), 10),
+                MathUtils.roundFloat(x * matrix.get(1, 0) + y * matrix.get(1, 1) + z * matrix.get(1, 2), 10),
+                MathUtils.roundFloat(x * matrix.get(2, 0) + y * matrix.get(2, 1) + z * matrix.get(2, 2), 10)
         );
     }
 
@@ -57,7 +61,6 @@ public class Vector3f implements IVector<Float> {
                 z - ((Vector3f) operand).getZ());
     }
 
-    @Override
     public IVector<Float> mul(IVector<Float> operand) {
         if(!(operand instanceof Vector3f)) throw new UnsupportedOperandException();
         return new Vector3f(

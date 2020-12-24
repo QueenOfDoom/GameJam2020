@@ -22,16 +22,33 @@ lack of GLSL knowledge, plus I am still not quite sure about most functions, wha
 safer with Java. I initially planned on using my Source Engine for that purpose, but I think I'll need to rewrite quite a few
 parts, to get where I want to be.
 
-## Day 1
+## Day 1 (2020/12/21)
 Today's day one of the Game Jam, I've created a mindmap of thing I want to achieve in this project, and I'm really looking forward
 to make as much out of it as possible! I think I'll start off with a basic rendering engine for an isometric perspective, a basic
 game world, which contains tiles and tiles which map to certain textures and properties. I plan on doing that using some simple
 vector / matrix maths. So I guess I'll start it up by creating logger / maths / render and world packages to organize the project
 structure a little :). Of course an App Class as well to rule them all!
 
-## Day 2
+## Day 1.5 (2020/12/22)
+Hey, sup people who look at this repo ^^! Today I'll take my day off, from developing actively, I might do some minor changes / fixes,
+continue writing all the tests and stuff, but nothing major today - today is my birthday! There are people I met online, who made
+this day memorable, so might as well enjoy it! I will write a huge text as a token of my appreciation to everyone I got to know or
+already knew this year - who made my life even just a bit better! Looking forward to writing this up.
+
+## Day 2 (2020/12/23)
 I started implementing Basic mathematical functions and, well. It's going ok. I decided to remove the adjugate and inversion methods
 they're a bit too complicated for now, they'd require the implementation of something like a 
 [Matrix Decomposition](https://en.wikipedia.org/wiki/Matrix_decomposition), which for now, is not needed, so I'll simply omit
 it. Other than that, I'm having a few bugs, but it's going in the right direction. I think I could start with something different
-today.
+today. Today I finished *most* of the mathematics :). That's a great feeling!
+
+## Day 3 (2020/12/24)
+Hiya, welcome back to Doom's Dev Diary. I progressed a **LOT** today. After countless attempts, I got a simple isometric perspective
+set up. It's far away from looking good, but it probably will if I'll continue working on it :)! At the moment it has no height
+parameter. I will need to work on that one in a bit, but I'll leave it out *for now*. I'm very pleased by how it looks at the moment!
+I have a few minor bugs, such as the fact that it doesn't load properly on the initial "boot-up", so I have to refresh the pane
+in order to see something, but that's nothing critical! Since I'm offline right now, I can't push this update, it might be pushed
+either tomorrow or in 3 days or so, which seems more realistic at the moment. Also, if there will be no screenshot below this before 
+2021 will start, feel free to open an issue, otherwise I'll try to link it here as soon as I got some stable Network Connection.  
+![Game Field](https://github.com/QueenOfDoom/GameJam2020/blob/master/img/2020-12-24-0.png?raw=true)  
+In the most recent change, I added some Vectors to the textures, in order to better trace translation/ rotation / scaling bugs.

@@ -14,13 +14,16 @@ class Vector2fTest {
 
     @Test
     void transform() {
-        IMatrix<Float> mat1 = new Matrix3f().rotation(Math.toRadians(90.0));
-        IMatrix<Float> mat2 = new Matrix3f().rotation(Math.toRadians(180.0));
-        IMatrix<Float> mat3 = new Matrix3f().rotation(Math.toRadians(270.0));
+        IMatrix<Float> mat1 = new Matrix3f().rotationZ(Math.toRadians(90.0));
+        IMatrix<Float> mat2 = new Matrix3f().rotationZ(Math.toRadians(180.0));
+        IMatrix<Float> mat3 = new Matrix3f().rotationZ(Math.toRadians(270.0));
+        IMatrix<Float> mat4 = new Matrix3f().rotationZ(Math.toRadians(30));
         Vector3f v3 = new Vector3f(1, 0);
-        assertEquals(new Vector3f(0, -1), v3.transform(mat1));
+        Vector3f isoV = (Vector3f) v3.transform(mat4);
+        System.out.printf("Isometric Unit Vector: (%f|%f)\n", isoV.getX(), isoV.getY());
+        assertEquals(new Vector3f(0, 1), v3.transform(mat1));
         assertEquals(new Vector3f(-1, 0), v3.transform(mat2));
-        assertEquals(new Vector3f(0, 1), v3.transform(mat3));
+        assertEquals(new Vector3f(0, -1), v3.transform(mat3));
     }
 
     @Test

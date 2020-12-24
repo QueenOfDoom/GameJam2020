@@ -17,7 +17,11 @@ public class Vector4f implements IVector<Float> {
     }
 
     public Vector4f(float i, float j, float k) {
-        this(i, j, k, 0);
+        this(i, j, k, 1);
+    }
+
+    public Vector4f(Vector3f vec) {
+        this(vec.getX(), vec.getY(), vec.getZ(), 1);
     }
 
     public float getI() {
@@ -41,23 +45,23 @@ public class Vector4f implements IVector<Float> {
         return new Vector4f(
                 MathUtils.roundFloat(
                         i * matrix.get(0, 0) +
-                                j * matrix.get(0, 1) +
-                                k * matrix.get(0, 2) +
-                                l * matrix.get(0, 3), 10),
+                                j * matrix.get(1, 0) +
+                                k * matrix.get(2, 0) +
+                                l * matrix.get(3, 0), 10),
                 MathUtils.roundFloat(
-                        i * matrix.get(1, 0) +
+                        i * matrix.get(0, 1) +
                                 j * matrix.get(1, 1) +
-                                k * matrix.get(1, 2) +
-                                l * matrix.get(1, 3), 10),
+                                k * matrix.get(2, 1) +
+                                l * matrix.get(3, 1), 10),
                 MathUtils.roundFloat(
-                        i * matrix.get(2, 0) +
-                                j * matrix.get(2, 1) +
+                        i * matrix.get(0, 2) +
+                                j * matrix.get(1, 2) +
                                 k * matrix.get(2, 2) +
-                                l * matrix.get(2, 3), 10),
+                                l * matrix.get(3, 2), 10),
                 MathUtils.roundFloat(
-                        i * matrix.get(3, 0) +
-                                j * matrix.get(3, 1) +
-                                k * matrix.get(3, 2) +
+                        i * matrix.get(0, 3) +
+                                j * matrix.get(1, 3) +
+                                k * matrix.get(2, 3) +
                                 l * matrix.get(3, 3), 10)
         );
     }
@@ -128,6 +132,12 @@ public class Vector4f implements IVector<Float> {
     public int size() {
         return 4;
     }
+
+    public Vector3f toVector3() {
+        return new Vector3f(i, j, k);
+    }
+
+    public Vector2f toVector2() { return new Vector2f(i, j); }
 
     @Override
     public String toString() {

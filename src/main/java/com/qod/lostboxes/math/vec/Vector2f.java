@@ -30,8 +30,8 @@ public class Vector2f implements IVector<Float> {
         // TODO: Adapt Vector to Matrix Size (fill with 0's)
         if(!(matrix instanceof Matrix2f)) throw new UnsupportedOperandException();
         return new Vector2f(
-                matrix.get(0, 0) * x + matrix.get(0, 1) * y,
-                matrix.get(1, 0) * x + matrix.get(1, 1) * y
+                matrix.get(0, 0) * x + matrix.get(1, 0) * y,
+                matrix.get(0, 1) * x + matrix.get(1, 1) * y
         );
     }
 

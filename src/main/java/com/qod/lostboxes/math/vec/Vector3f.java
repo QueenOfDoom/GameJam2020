@@ -21,7 +21,13 @@ public class Vector3f implements IVector<Float> {
     public Vector3f(float x, float y) {
         this.x = x;
         this.y = y;
-        this.z = 0;
+        this.z = 1;
+    }
+
+    public Vector3f(Vector2f vec) {
+        this.x = vec.getX();
+        this.y = vec.getY();
+        this.z = 1;
     }
 
     public float getX() {
@@ -39,9 +45,9 @@ public class Vector3f implements IVector<Float> {
     @Override
     public IVector<Float> transform(IMatrix<Float> matrix) {
         return new Vector3f(
-                MathUtils.roundFloat(x * matrix.get(0, 0) + y * matrix.get(0, 1) + z * matrix.get(0, 2), 10),
-                MathUtils.roundFloat(x * matrix.get(1, 0) + y * matrix.get(1, 1) + z * matrix.get(1, 2), 10),
-                MathUtils.roundFloat(x * matrix.get(2, 0) + y * matrix.get(2, 1) + z * matrix.get(2, 2), 10)
+                MathUtils.roundFloat(x * matrix.get(0, 0) + y * matrix.get(1, 0) + z * matrix.get(2, 0), 10),
+                MathUtils.roundFloat(x * matrix.get(0, 1) + y * matrix.get(1, 1) + z * matrix.get(2, 1), 10),
+                MathUtils.roundFloat(x * matrix.get(0, 2) + y * matrix.get(1, 2) + z * matrix.get(2, 2), 10)
         );
     }
 
